@@ -1,0 +1,573 @@
+﻿<html lang="en" data-theme="dark" data-qb-installed="true">
+  <head>
+    <!--
+      Temporary landing page while the full portfolio (~80% done) is
+      being rebuilt. The complete previous landing page is preserved
+      at /home.html - swap this file back out once the rebuild ships.
+    -->
+    <script>
+      (function () {
+        var s = localStorage.getItem("theme");
+        document.documentElement.setAttribute(
+          "data-theme",
+          s
+            ? s
+            : window.matchMedia("(prefers-color-scheme:dark)").matches
+              ? "dark"
+              : "light",
+        );
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Gunadnya Raut - New Portfolio, Coming Together</title>
+    <meta
+      name="description"
+      content="Senior Product Designer based in Mumbai. The full portfolio is being rebuilt - currently underway, in the details."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gunadnyaraut.com//" />
+    <meta
+      property="og:title"
+      content="Gunadnya Raut - New Portfolio, Coming Together"
+    />
+    <meta
+      property="og:description"
+      content="Senior Product Designer based in Mumbai. The full portfolio is being rebuilt - currently underway, in the details."
+    />
+    <meta
+      property="og:image"
+      content="https://gunadnyaraut.com//og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Gunadnya Raut - New Portfolio, Coming Together"
+    />
+    <meta
+      name="twitter:description"
+      content="Senior Product Designer based in Mumbai. The full portfolio is being rebuilt - currently underway, in the details."
+    />
+    <meta
+      name="twitter:image"
+      content="https://gunadnyaraut.com//og-image.png"
+    />
+
+    <!-- Fonts - preloaded async to avoid render-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;display=swap"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+    /></noscript>
+
+    <link rel="stylesheet" href="src/styles/styles.css" />
+    <link rel="stylesheet" href="src/styles/coming-soon.css" />
+    <link rel="icon" type="image/x-icon" href="src/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="src/favicon.svg" />
+  </head>
+  <body>
+    <!-- ==================== PRELOADER ==================== -->
+    <div id="preloader" aria-hidden="true">
+      <div class="pl-name"><span>Gunadnya Raut</span></div>
+      <div class="pl-bar-wrap"><div class="pl-bar" id="plBar"></div></div>
+    </div>
+
+    <!-- ==================== CURSOR ==================== -->
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <div class="cursor-arrow">
+        <svg
+          width="22"
+          height="26"
+          viewBox="0 0 22 26"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2 2L2 21L6.8 16.2L10.4 24L13.4 22.6L9.8 14.8L17 14.8L2 2Z"
+            fill="white"
+            stroke="#0C0C0B"
+            stroke-width="1.4"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </div>
+      <div class="cursor-label" id="cursorLabel">
+        <span class="cursor-label-dot"></span>
+        <span id="cursorLabelText">Guest</span>
+      </div>
+    </div>
+
+    <!-- ==================== UNICORN ====================
+         Free-floating, viewport-fixed mascot - lives outside the hero
+         so it can be dragged anywhere on the page. Swap the art by
+         replacing src/assets/UnicornPlaceholder.svg; no code changes
+         needed elsewhere. -->
+    <button
+      class="cs-unicorn"
+      id="csUnicorn"
+      type="button"
+      data-cursor="drag"
+      aria-label="Floating mascot - drag me anywhere, or double-click for a surprise"
+    >
+      <img
+        class="cs-unicorn-img"
+        id="csUnicornImg"
+        src="src/assets/unicorn.svg"
+        alt=""
+        draggable="false"
+      />
+    </button>
+
+    <!-- ==================== NAV ==================== -->
+    <nav id="nav">
+      <a href="#hero" class="nav-logo">GR</a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#contact" data-cursor="hi">Get in touch</a></li>
+        </ul>
+        <button
+          class="theme-btn"
+          id="themeBtn"
+          aria-label="Toggle colour scheme"
+        >
+          <span class="t-icon" id="tIcon">◐</span>
+          <span id="tLabel">Light</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ==================== HERO ==================== -->
+      <section id="hero" class="cs-stage">
+        <div class="cs-glow" aria-hidden="true"></div>
+        <div class="cs-stars" id="csStars" aria-hidden="true"></div>
+
+        <!-- Populated by arc.js: a layered SVG (glow + crisp core stroke)
+             plus a bloom div at the apex. Purely decorative, independent
+             of the unicorn. -->
+        <div class="cs-arc" id="csArc" aria-hidden="true"></div>
+
+        <div class="cs-copy">
+          <p class="cs-label">Coming soon</p>
+          <h1 class="cs-heading">
+            <span class="tl"><span>Good work takes time.</span></span>
+          </h1>
+          <p class="cs-hint" id="csHint">
+            Psst - the mascot is draggable anywhere ✦ double-click for a
+            surprise
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================== MARQUEE ==================== -->
+      <div class="marquee-wrap" aria-hidden="true">
+        <div class="mq-band mq-band--pos">
+          <div class="marquee-track">
+            <span class="mq-item">Designing With Intention</span>
+            <span class="mq-item">Ideas Becoming Interfaces</span>
+            <span class="mq-item">Crafted, Not Rushed</span>
+            <span class="mq-item">Making Pixels Behave</span>
+            <span class="mq-item">✦ Still Shipping Chai ✦</span>
+            <span class="mq-item">Every Detail Considered</span>
+            <span class="mq-item">Systems Over Screens</span>
+            <span class="mq-item">Almost There</span>
+            <span class="mq-item">Building Meaningful Experiences</span>
+            <span class="mq-item">Quality Levelling Up</span>
+            <span class="mq-item">Polishing The Last Stretch</span>
+            <span class="mq-item">Four-Fifths Of The Way There</span>
+            <span class="mq-item">Designing With Intention</span>
+            <span class="mq-item">Ideas Becoming Interfaces</span>
+            <span class="mq-item">Crafted, Not Rushed</span>
+            <span class="mq-item">Making Pixels Behave</span>
+            <span class="mq-item">✦ Still Shipping Chai ☕ ✦</span>
+            <span class="mq-item">Every Detail Considered</span>
+            <span class="mq-item">Systems Over Screens</span>
+            <span class="mq-item">Almost There</span>
+            <span class="mq-item">Building Meaningful Experiences</span>
+            <span class="mq-item">Quality Levelling Up</span>
+            <span class="mq-item">Polishing The Last Stretch</span>
+            <span class="mq-item">Four-Fifths Of The Way There</span>
+          </div>
+        </div>
+        <div class="mq-band mq-band--neg">
+          <div class="marquee-track mq-rev">
+            <span class="mq-item">Designing With Intention</span>
+            <span class="mq-item">Ideas Becoming Interfaces</span>
+            <span class="mq-item">Crafted, Not Rushed</span>
+            <span class="mq-item">Making Pixels Behave</span>
+            <span class="mq-item">✦ Still Shipping Chai ✦</span>
+            <span class="mq-item">Every Detail Considered</span>
+            <span class="mq-item">Systems Over Screens</span>
+            <span class="mq-item">Almost There</span>
+            <span class="mq-item">Building Meaningful Experiences</span>
+            <span class="mq-item">Quality Levelling Up</span>
+            <span class="mq-item">Polishing The Last Stretch</span>
+            <span class="mq-item">Four-Fifths Of The Way There</span>
+            <span class="mq-item">Designing With Intention</span>
+            <span class="mq-item">Ideas Becoming Interfaces</span>
+            <span class="mq-item">Crafted, Not Rushed</span>
+            <span class="mq-item">Making Pixels Behave</span>
+            <span class="mq-item">✦ Still Shipping Chai ☕ ✦</span>
+            <span class="mq-item">Every Detail Considered</span>
+            <span class="mq-item">Systems Over Screens</span>
+            <span class="mq-item">Almost There</span>
+            <span class="mq-item">Building Meaningful Experiences</span>
+            <span class="mq-item">Quality Levelling Up</span>
+            <span class="mq-item">Polishing The Last Stretch</span>
+            <span class="mq-item">Four-Fifths Of The Way There</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== CONTACT ==================== -->
+      <section id="contact" class="cs-contact">
+        <p class="s-label">In the meantime</p>
+        <h2 class="cs-contact-title">
+          <span class="tl"><span>Let's talk anyway.</span></span>
+        </h2>
+
+        <div class="cs-status-pills">
+          <div class="pill available">
+            <span class="pill-dot"></span>Available for work
+          </div>
+          <div class="pill">Mumbai, India</div>
+          <div class="pill">Currently rebuilding</div>
+        </div>
+
+        <div class="contact-footer">
+          <div class="cf-left">
+            <div class="cf-email-row">
+              <p>rgunadnya@gmail.com</p>
+              <button
+                class="copy-btn"
+                id="copyEmailBtn"
+                aria-label="Copy email address"
+              >
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="4.5" y="4.5" width="7" height="7" rx="1.2"></rect>
+                  <path d="M1.5 8.5V2.5a1 1 0 0 1 1-1h6"></path>
+                </svg>
+              </button>
+            </div>
+            <p>Mumbai, India</p>
+          </div>
+          <div class="cf-right">
+            <a href="mailto:rgunadnya@gmail.com" data-cursor="hi">Email</a>
+            <a
+              href="https://www.linkedin.com/in/gunadnyaraut"
+              target="_blank"
+              rel="noopener"
+              data-cursor="hi"
+              >LinkedIn</a
+            >
+            <a
+              href="https://behane.net/gunadnyar"
+              target="_blank"
+              rel="noopener"
+              data-cursor="hi"
+              >Behance</a
+            >
+            <a
+              href="https://dribbble.com/uigunadnya"
+              target="_blank"
+              rel="noopener"
+              data-cursor="hi"
+              >Dribbble</a
+            >
+          </div>
+        </div>
+
+        <p class="copy">© 2026 Gunadnya Raut · Full site launching soon.</p>
+      </section>
+    </main>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" onerror="window.__gsapFailed=true"></script>
+    <script>
+      // If GSAP failed to load, instantly reveal everything
+      if (window.__gsapFailed || typeof gsap === "undefined") {
+        document.getElementById("preloader").style.display = "none";
+        document.body.style.overflow = "";
+        document.querySelectorAll(
+          ".tl span, .pl-name span, .nav-logo, .nav-right, .pill"
+        ).forEach(function(el) {
+          el.style.opacity = "1";
+          el.style.transform = "none";
+        });
+      }
+    </script>
+    <script>
+      /* ---- THEME ---- */
+      const html = document.documentElement;
+      const tBtn = document.getElementById("themeBtn");
+      const tIcon = document.getElementById("tIcon");
+      const tLabel = document.getElementById("tLabel");
+      let dark =
+        (localStorage.getItem("theme") ||
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light")) === "dark";
+      tIcon.textContent = dark ? "◐" : "◑";
+      tLabel.textContent = dark ? "Light" : "Dark";
+
+      tBtn.addEventListener("click", () => {
+        dark = !dark;
+        html.setAttribute("data-theme", dark ? "dark" : "light");
+        localStorage.setItem("theme", dark ? "dark" : "light");
+        tIcon.textContent = dark ? "◐" : "◑";
+        tLabel.textContent = dark ? "Light" : "Dark";
+      });
+
+      /* ---- CURSOR (Miro-style) - desktop/mouse only ---- */
+      if (window.matchMedia("(pointer: fine)").matches) {
+        const cursorEl = document.getElementById("cursor");
+
+        document.addEventListener(
+          "mousemove",
+          (e) => {
+            cursorEl.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            cursorEl.style.opacity = "1";
+          },
+          { once: false },
+        );
+
+        document.addEventListener("mouseleave", () => {
+          cursorEl.style.opacity = "0";
+        });
+        document.addEventListener("mouseenter", () => {
+          cursorEl.style.opacity = "1";
+        });
+
+        let _cursorTimer = null;
+        document.querySelectorAll("a, button").forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            clearTimeout(_cursorTimer);
+            document.body.classList.add("is-hovering");
+            const t = document.getElementById("cursorLabelText");
+            const label =
+              el.dataset.cursor === "hi" ? "Say hi!" :
+              el.dataset.cursor === "drag" ? "Drag me" :
+              null;
+            if (t && label) {
+              t.style.opacity = "0";
+              _cursorTimer = setTimeout(() => {
+                t.textContent = label;
+                t.style.opacity = "1";
+              }, 120);
+            }
+          });
+          el.addEventListener("mouseleave", () => {
+            clearTimeout(_cursorTimer);
+            document.body.classList.remove("is-hovering");
+            const t = document.getElementById("cursorLabelText");
+            if (t) {
+              t.style.opacity = "0";
+              _cursorTimer = setTimeout(() => {
+                t.textContent = "Guest";
+                t.style.opacity = "1";
+              }, 120);
+            }
+          });
+        });
+      }
+
+      /* ---- PRELOADER ---- */
+      const preloader = document.getElementById("preloader");
+      const plBar = document.getElementById("plBar");
+      const plName = document.querySelector(".pl-name span");
+
+      var _gsapOk = typeof gsap !== "undefined";
+
+      var _reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!_gsapOk || _reducedMotion || sessionStorage.getItem("gunadnya_visited")) {
+        preloader.style.display = "none";
+        document.body.style.overflow = "";
+        sessionStorage.setItem("gunadnya_visited", "1");
+        if (_gsapOk) heroIn();
+      } else {
+        sessionStorage.setItem("gunadnya_visited", "1");
+        document.body.style.overflow = "hidden";
+        gsap.to(plName, {
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          delay: 0.1,
+        });
+        setTimeout(() => {
+          plBar.style.width = "100%";
+        }, 150);
+        setTimeout(() => {
+          heroIn();
+          gsap.to(preloader, {
+            yPercent: -100,
+            duration: 0.85,
+            delay: 0.1,
+            ease: "power3.inOut",
+            onComplete: () => {
+              preloader.style.display = "none";
+              document.body.style.overflow = "";
+            },
+          });
+        }, 1300);
+      }
+
+      /* ---- HERO ENTRANCE ---- */
+      function heroIn() {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          [".nav-logo", ".nav-right"].forEach(function(sel) {
+            var el = document.querySelector(sel);
+            if (el) { el.style.opacity = "1"; el.style.transform = "none"; }
+          });
+          document.querySelectorAll(".pill, .cs-heading .tl span, .cs-contact-title .tl span").forEach(function(el) {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+          });
+          return;
+        }
+
+        gsap.set(".nav-logo", { opacity: 0 });
+        gsap.set(".nav-right", { opacity: 0 });
+        gsap.set(".pill", { opacity: 0, x: 32 });
+        gsap.set(".cs-label, .cs-sub, .cs-hint", { opacity: 0, y: 14 });
+
+        gsap.to([".nav-logo", ".nav-right"], {
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "power2.out",
+        });
+        gsap.to(".cs-label", {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          delay: 0.15,
+        });
+        gsap.to(".cs-heading .tl span", {
+          y: 0,
+          duration: 1.05,
+          ease: "power3.out",
+          delay: 0.28,
+        });
+        gsap.to(".cs-sub", {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          ease: "power2.out",
+          delay: 0.6,
+        });
+        gsap.to(".cs-hint", {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          delay: 0.95,
+        });
+        gsap.to(".pill", {
+          x: 0,
+          opacity: 1,
+          duration: 0.55,
+          stagger: 0.1,
+          ease: "power2.out",
+          delay: 0.9,
+        });
+
+        // Contact title reveal on scroll into view
+        if (typeof IntersectionObserver !== "undefined") {
+          var contactTitle = document.querySelector(".cs-contact-title");
+          if (contactTitle) {
+            var spans = contactTitle.querySelectorAll(".tl span");
+            var io = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  gsap.to(spans, {
+                    y: 0,
+                    duration: 0.9,
+                    ease: "power3.out",
+                  });
+                  io.disconnect();
+                }
+              });
+            }, { threshold: 0.4 });
+            io.observe(contactTitle);
+          }
+        }
+      }
+
+      /* ---- NAV SCROLL STATE ---- */
+      const navEl = document.getElementById("nav");
+      let navScrolled = false;
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          const shouldScroll = window.scrollY > 60;
+          if (shouldScroll === navScrolled) return;
+          navScrolled = shouldScroll;
+          navEl.classList.toggle("scrolled", shouldScroll);
+        },
+        { passive: true },
+      );
+
+      /* ---- SMOOTH ANCHOR SCROLL ---- */
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const target = document.querySelector(a.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      /* ---- COPY EMAIL ---- */
+      const copyBtn = document.getElementById("copyEmailBtn");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText("rgunadnya@gmail.com").then(() => {
+            copyBtn.classList.add("copied");
+            copyBtn.innerHTML =
+              '<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l3.5 3.5L11 3"/></svg>';
+            setTimeout(() => {
+              copyBtn.classList.remove("copied");
+              copyBtn.innerHTML =
+                '<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="7" height="7" rx="1.2"/><path d="M1.5 8.5V2.5a1 1 0 0 1 1-1h6"/></svg>';
+            }, 2000);
+          });
+        });
+      }
+    </script>
+    <script type="module" src="src/scripts/coming-soon/main.js"></script>
+  </body>
+</html>
