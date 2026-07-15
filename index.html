@@ -31,7 +31,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://gunadnyaraut.com//" />
+    <meta property="og:url" content="https://gunadnya.com//" />
     <meta
       property="og:title"
       content="Gunadnya Raut - New Portfolio, Coming Together"
@@ -42,7 +42,7 @@
     />
     <meta
       property="og:image"
-      content="https://gunadnyaraut.com//og-image.png"
+      content="https://gunadnya.com//og-image.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -58,7 +58,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://gunadnyaraut.com//og-image.png"
+      content="https://gunadnya.com//og-image.png"
     />
 
     <!-- Fonts - preloaded async to avoid render-blocking -->
@@ -312,18 +312,23 @@
     </main>
 
     <!-- ==================== SCRIPTS ==================== -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" onerror="window.__gsapFailed=true"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      onerror="window.__gsapFailed = true"
+    ></script>
     <script>
       // If GSAP failed to load, instantly reveal everything
       if (window.__gsapFailed || typeof gsap === "undefined") {
         document.getElementById("preloader").style.display = "none";
         document.body.style.overflow = "";
-        document.querySelectorAll(
-          ".tl span, .pl-name span, .nav-logo, .nav-right, .pill"
-        ).forEach(function(el) {
-          el.style.opacity = "1";
-          el.style.transform = "none";
-        });
+        document
+          .querySelectorAll(
+            ".tl span, .pl-name span, .nav-logo, .nav-right, .pill",
+          )
+          .forEach(function (el) {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+          });
       }
     </script>
     <script>
@@ -375,9 +380,11 @@
             document.body.classList.add("is-hovering");
             const t = document.getElementById("cursorLabelText");
             const label =
-              el.dataset.cursor === "hi" ? "Say hi!" :
-              el.dataset.cursor === "drag" ? "Drag me" :
-              null;
+              el.dataset.cursor === "hi"
+                ? "Say hi!"
+                : el.dataset.cursor === "drag"
+                  ? "Drag me"
+                  : null;
             if (t && label) {
               t.style.opacity = "0";
               _cursorTimer = setTimeout(() => {
@@ -408,9 +415,15 @@
 
       var _gsapOk = typeof gsap !== "undefined";
 
-      var _reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var _reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
-      if (!_gsapOk || _reducedMotion || sessionStorage.getItem("gunadnya_visited")) {
+      if (
+        !_gsapOk ||
+        _reducedMotion ||
+        sessionStorage.getItem("gunadnya_visited")
+      ) {
         preloader.style.display = "none";
         document.body.style.overflow = "";
         sessionStorage.setItem("gunadnya_visited", "1");
@@ -445,14 +458,21 @@
       /* ---- HERO ENTRANCE ---- */
       function heroIn() {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          [".nav-logo", ".nav-right"].forEach(function(sel) {
+          [".nav-logo", ".nav-right"].forEach(function (sel) {
             var el = document.querySelector(sel);
-            if (el) { el.style.opacity = "1"; el.style.transform = "none"; }
+            if (el) {
+              el.style.opacity = "1";
+              el.style.transform = "none";
+            }
           });
-          document.querySelectorAll(".pill, .cs-heading .tl span, .cs-contact-title .tl span").forEach(function(el) {
-            el.style.opacity = "1";
-            el.style.transform = "none";
-          });
+          document
+            .querySelectorAll(
+              ".pill, .cs-heading .tl span, .cs-contact-title .tl span",
+            )
+            .forEach(function (el) {
+              el.style.opacity = "1";
+              el.style.transform = "none";
+            });
           return;
         }
 
@@ -508,18 +528,21 @@
           var contactTitle = document.querySelector(".cs-contact-title");
           if (contactTitle) {
             var spans = contactTitle.querySelectorAll(".tl span");
-            var io = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  gsap.to(spans, {
-                    y: 0,
-                    duration: 0.9,
-                    ease: "power3.out",
-                  });
-                  io.disconnect();
-                }
-              });
-            }, { threshold: 0.4 });
+            var io = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    gsap.to(spans, {
+                      y: 0,
+                      duration: 0.9,
+                      ease: "power3.out",
+                    });
+                    io.disconnect();
+                  }
+                });
+              },
+              { threshold: 0.4 },
+            );
             io.observe(contactTitle);
           }
         }
