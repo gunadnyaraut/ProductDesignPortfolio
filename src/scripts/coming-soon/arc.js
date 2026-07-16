@@ -124,8 +124,10 @@ export function initArc({ stage, arcEl, isLight }) {
     var H = rect.height;
     if (!W || !H) return;
 
-    // Arc spans nearly the full hero width, fading out right at the edges
-    var halfSpan = W * 0.48;
+    // Arc spans nearly the full hero width, fading out right at the edges.
+    // Wider span only on mobile - on desktop the extra reach just pushed the
+    // arc off-screen without adding to the visible curve.
+    var halfSpan = W < 700 ? W * 0.48 : W * 0.34;
     var cx = W / 2;
     var cy = H;
     // Lower multiplier than before (was H*0.92) so the apex sits further
