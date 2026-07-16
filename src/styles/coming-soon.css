@@ -510,32 +510,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .cs-glow {
-    animation: none;
-  }
-  .cs-star {
-    animation: none;
-    opacity: var(--star-o, 0.35);
-    transform: rotate(var(--star-rot, 0deg));
-  }
-  .cs-arc-bloom {
-    animation: none;
-  }
-  .cs-unicorn-img {
-    animation: none !important;
-  }
-  .cs-unicorn {
-    transition: none;
-  }
-  .cs-unicorn-tip {
-    transition: opacity 0.3s ease;
-  }
-  .cs-unicorn-tip-sparkle {
-    animation: none;
-  }
-  .cs-heading .tl span,
-  .cs-contact-title .tl span {
-    transform: none !important;
-  }
-}

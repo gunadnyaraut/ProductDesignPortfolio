@@ -8,7 +8,6 @@
 export function initBackground({ stage, starsEl, glowEl }) {
   if (!starsEl) return;
 
-  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isFinePointer = window.matchMedia("(pointer: fine)").matches;
 
   var glitterVariants = ["cs-star--a", "cs-star--b", "cs-star--c"];
@@ -50,8 +49,8 @@ export function initBackground({ stage, starsEl, glowEl }) {
   });
 
   // Subtle parallax: glow/stars drift a few px opposite the cursor,
-  // desktop-only, skipped entirely under reduced motion.
-  if (isFinePointer && !reducedMotion && stage) {
+  // desktop-only.
+  if (isFinePointer && stage) {
     var px = 0, py = 0, tx = 0, ty = 0;
     var raf = null;
 

@@ -43,7 +43,6 @@ var FEEDBACK_SMOOTH = 0.22; // per-frame-at-60fps smoothing for tilt/scale
 export function initUnicorn({ button, img, hero }) {
   if (!button) return;
 
-  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
   var half = button.offsetWidth / 2 || 32;
@@ -81,7 +80,7 @@ export function initUnicorn({ button, img, hero }) {
   // Velocity-driven tilt + squash/stretch, smoothed frame-to-frame so it
   // reads as weight and lag rather than a value glued to the pointer.
   function updateFeedback(dt) {
-    if (!img || reducedMotion) return;
+    if (!img) return;
     var frameFactor = Math.min(1, FEEDBACK_SMOOTH * (dt * 60));
     var speed = Math.hypot(spring.vx, spring.vy);
     var targetTilt = clamp(spring.vx * TILT_FACTOR, -TILT_MAX, TILT_MAX);
@@ -115,7 +114,6 @@ export function initUnicorn({ button, img, hero }) {
   }
 
   function wander(now) {
-    if (reducedMotion) return;
     var radius = 46 + Math.random() * 30;
     var angle = Math.random() * Math.PI * 2;
     var target = clampToViewport(
@@ -128,7 +126,7 @@ export function initUnicorn({ button, img, hero }) {
   }
 
   function hop() {
-    if (mode !== "idle" || reducedMotion) return;
+    if (mode !== "idle") return;
     button.classList.add("is-hopping");
     setTimeout(function () {
       button.classList.remove("is-hopping");
@@ -293,11 +291,6 @@ export function initUnicorn({ button, img, hero }) {
     button.classList.remove("is-dragging");
     setCursorLabel(null);
 
-    if (reducedMotion) {
-      settleIntoIdle(performance.now());
-      return;
-    }
-
     // spring.vx/vy already reflect the recent chase velocity - clamp so
     // a hard flick still coasts believably rather than flying off
     var speed = Math.hypot(spring.vx, spring.vy);
@@ -329,7 +322,7 @@ export function initUnicorn({ button, img, hero }) {
     hideHint();
     var pick = playfulAnims[(Math.random() * playfulAnims.length) | 0];
 
-    if (pick === "anim-burst" || reducedMotion) {
+    if (pick === "anim-burst") {
       spawnBurst(spring.x, spring.y);
       return;
     }
