@@ -261,8 +261,8 @@ export function initUnicorn({ button, img, hero }) {
   function onPointerDown(e) {
     mode = "dragging";
     button.classList.add("is-dragging", "is-moving");
+    document.body.classList.add("is-dragging-unicorn");
     hideHint();
-    setCursorLabel("Dragging…");
     if (button.setPointerCapture) {
       try {
         button.setPointerCapture(e.pointerId);
@@ -289,6 +289,7 @@ export function initUnicorn({ button, img, hero }) {
   function onPointerUp() {
     if (mode !== "dragging") return;
     button.classList.remove("is-dragging");
+    document.body.classList.remove("is-dragging-unicorn");
     setCursorLabel(null);
 
     // spring.vx/vy already reflect the recent chase velocity - clamp so

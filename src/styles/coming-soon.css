@@ -239,8 +239,8 @@
   z-index: 500;
   left: 0;
   top: 0;
-  width: 80px;
-  height: 80px;
+  width: 92px;
+  height: 92px;
   background: none;
   border: none;
   padding: 0;
@@ -492,8 +492,8 @@
     transform: translateY(90px);
   }
   .cs-unicorn {
-    width: 52px;
-    height: 52px;
+    width: 60px;
+    height: 60px;
   }
   .cs-contact {
     padding: 64px 24px 0;
@@ -502,8 +502,8 @@
 
 @media (max-width: 480px) {
   .cs-unicorn {
-    width: 44px;
-    height: 44px;
+    width: 50px;
+    height: 50px;
   }
   .cs-hint {
     padding: 0 12px;

@@ -124,8 +124,8 @@ export function initArc({ stage, arcEl, isLight }) {
     var H = rect.height;
     if (!W || !H) return;
 
-    // Arc occupies ~68% of the hero width
-    var halfSpan = W * 0.34;
+    // Arc spans nearly the full hero width, fading out right at the edges
+    var halfSpan = W * 0.48;
     var cx = W / 2;
     var cy = H;
     // Lower multiplier than before (was H*0.92) so the apex sits further

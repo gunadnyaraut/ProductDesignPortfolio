@@ -117,6 +117,13 @@ ul {
   /* tip of the arrow is the reference point */
   will-change: transform;
   opacity: 0;
+  transition: opacity 0.15s ease;
+}
+/* Hide the custom cursor (arrow + label pill) entirely while the
+   unicorn is being dragged - a text label following the pointer reads
+   as clutter once the mascot itself is doing the following. */
+body.is-dragging-unicorn .cursor {
+  opacity: 0 !important;
 }
 
 /* Arrow SVG */
