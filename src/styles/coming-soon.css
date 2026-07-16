@@ -510,3 +510,335 @@
   }
 }
 
+/* ============================================
+   Unicorn Dunk mini-game (built + torn down by
+   src/scripts/coming-soon/game/). The court itself
+   is drawn on the canvas; these styles are just the
+   modal shell + overlay UI. Sits below the custom
+   cursor (z 9999) so it keeps floating on top,
+   consistent with the rest of the site.
+============================================ */
+.cs-game {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+.cs-game.is-open {
+  opacity: 1;
+}
+
+.cs-game-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 6, 5, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.cs-game-card {
+  position: relative;
+  width: min(440px, 100%);
+  max-height: min(720px, 92vh);
+  aspect-ratio: 3 / 4;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #e6f0ff;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cs-game.is-open .cs-game-card {
+  transform: translateY(0) scale(1);
+}
+@media (max-height: 620px) {
+  .cs-game-card {
+    aspect-ratio: auto;
+    height: 92vh;
+  }
+}
+
+.cs-game-stage {
+  position: absolute;
+  inset: 0;
+}
+.cs-game-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Pastel fallback; the court art is painted on the canvas. */
+  background: linear-gradient(180deg, #f6e6ff 0%, #e6f0ff 50%, #fff0e8 100%);
+  touch-action: none;
+}
+
+.cs-game-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(60, 40, 80, 0.28);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.cs-game-close:hover {
+  background: rgba(60, 40, 80, 0.45);
+  transform: scale(1.06);
+}
+
+.cs-game-hud {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 0 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-family: "DM Sans", sans-serif;
+  pointer-events: none;
+}
+.cs-game-hud-best {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(74, 58, 90, 0.75);
+  background: rgba(255, 255, 255, 0.55);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+/* Live score: centred, big, shown only while playing. */
+.cs-game-hud-score {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: clamp(34px, 11vw, 56px);
+  line-height: 1;
+  color: #4a3a5a;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.6);
+  display: none;
+}
+.cs-game[data-state="playing"] .cs-game-hud-score {
+  display: block;
+}
+.cs-game-hud-score.is-pop {
+  animation: cs-game-score-pop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes cs-game-score-pop {
+  0% { transform: translateX(-50%) scale(1); }
+  45% { transform: translateX(-50%) scale(1.35); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+/* Empty spacer so best pill stays left-aligned via space-between. */
+.cs-game-hud::after {
+  content: "";
+  width: 36px;
+}
+
+/* ---- panels (Start / Game Over) ---- */
+.cs-game-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 32px 28px;
+  text-align: center;
+  background: rgba(8, 8, 12, 0.75);
+}
+.cs-game-panel[hidden] {
+  display: none;
+}
+
+.cs-game-emoji {
+  font-size: 46px;
+  line-height: 1;
+  animation: cs-game-bob 2.4s ease-in-out infinite;
+}
+@keyframes cs-game-bob {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-10px) rotate(4deg); }
+}
+
+.cs-game-title {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: clamp(26px, 7vw, 38px);
+  letter-spacing: -0.02em;
+  color: #f4f4ef;
+  margin: 0;
+}
+
+.cs-game-sub {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(237, 237, 232, 0.7);
+  max-width: 260px;
+  margin: 0;
+}
+.cs-game-sub kbd {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.cs-game-btn {
+  margin-top: 6px;
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #12100f;
+  background: linear-gradient(180deg, #ffb27a 0%, var(--accent) 100%);
+  border: none;
+  border-radius: 999px;
+  padding: 13px 34px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(255, 61, 0, 0.36);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.cs-game-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 32px rgba(255, 61, 0, 0.46);
+}
+.cs-game-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.cs-game-btn--ghost {
+  color: #f4f4ef;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+.cs-game-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.cs-game-actions {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.cs-game-actions .cs-game-btn {
+  margin-top: 0;
+}
+
+.cs-game-scoreline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+}
+.cs-game-final {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: clamp(52px, 16vw, 84px);
+  line-height: 1;
+  color: #fff;
+  animation: cs-game-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes cs-game-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.cs-game-scoreline-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(237, 237, 232, 0.55);
+}
+
+.cs-game-badge {
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #12100f;
+  background: linear-gradient(90deg, #ffd166, #8af3c3, #8ec5ff, #d8a7ff);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin: 0;
+  animation: cs-game-badge 1.6s ease-in-out infinite;
+}
+.cs-game-badge[hidden] {
+  display: none;
+}
+@keyframes cs-game-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+/* ---- confetti (new high score) ---- */
+.cs-game-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cs-game-confetti-bit {
+  position: absolute;
+  top: -12px;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.95;
+  animation: cs-game-confetti var(--cd, 1.4s) ease-in var(--cdl, 0s) forwards;
+}
+@keyframes cs-game-confetti {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% {
+    transform: translate(var(--cx, 0), 115%) rotate(var(--cr, 360deg));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-game,
+  .cs-game-card {
+    transition: none;
+  }
+  .cs-game-emoji,
+  .cs-game-badge,
+  .cs-game-final {
+    animation: none;
+  }
+}
+

@@ -9,6 +9,7 @@
 import { initBackground } from "./background.js";
 import { initArc } from "./arc.js";
 import { initUnicorn } from "./unicorn.js";
+import { initUnicornGame } from "./game/index.js";
 
 function boot() {
   var hero = document.getElementById("hero");
@@ -30,6 +31,14 @@ function boot() {
   });
 
   initUnicorn({ button: unicornBtn, img: unicornImg, hero: hero });
+
+  // Double-click the mascot to open the Dunk Shot mini-game. This only
+  // adds a listener - the unicorn's own drag/wander/dblclick behaviour is
+  // left completely untouched.
+  initUnicornGame({
+    trigger: unicornBtn,
+    imgSrc: unicornImg ? unicornImg.getAttribute("src") : "src/assets/unicorn.svg",
+  });
 }
 
 if (document.readyState === "loading") {
