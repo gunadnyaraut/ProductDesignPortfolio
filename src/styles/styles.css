@@ -1499,6 +1499,14 @@ nav.scrolled {
   .nav-links {
     display: none;
   }
+  .marquee-wrap {
+    height: 150px;
+  }
+  .mq-item {
+    font-size: 11px;
+    padding: 0 20px;
+    gap: 40px;
+  }
 }
 @media (max-width: 480px) {
   .hero-title {

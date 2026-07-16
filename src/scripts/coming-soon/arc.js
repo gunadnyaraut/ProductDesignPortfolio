@@ -59,9 +59,23 @@ export function initArc({ stage, arcEl, isLight }) {
   fillGradient.appendChild(fillStop0);
   fillGradient.appendChild(fillStop100);
 
+  // Radial echo of the apex bloom, painted onto the ground itself so the
+  // horizon doesn't cut from a lit sky straight to flat, unlit fill -
+  // the bloom div (below) lights the sky above the line but is occluded
+  // by the ground fill, so without this the ground reads as a visibly
+  // different, mismatched shade right at the seam.
+  var groundGlowGradient = el("radialGradient", { id: "csArcGroundGlow", gradientUnits: "userSpaceOnUse" });
+  var groundGlowStop0 = stop("0%", "#FFFFFF", 0.35);
+  var groundGlowStop30 = stop("30%", "#FFFFFF", 0.14);
+  var groundGlowStop100 = stop("100%", "#FFFFFF", 0);
+  groundGlowGradient.appendChild(groundGlowStop0);
+  groundGlowGradient.appendChild(groundGlowStop30);
+  groundGlowGradient.appendChild(groundGlowStop100);
+
   defs.appendChild(glowGradient);
   defs.appendChild(coreGradient);
   defs.appendChild(fillGradient);
+  defs.appendChild(groundGlowGradient);
 
   // Filled "planet body" beneath the arc line, painted in the page
   // background color - this is what stops stars/glow from showing
@@ -69,8 +83,14 @@ export function initArc({ stage, arcEl, isLight }) {
   // just a floating line.
   var fillShape = el("path", { fill: "url(#csArcFillFade)", stroke: "none" });
 
-  // Layer order matters: fill first (behind everything), then
-  // widest/softest glow, crisp core last (on top)
+  var groundGlow = el("path", {
+    fill: "url(#csArcGroundGlow)",
+    stroke: "none",
+    style: "mix-blend-mode: screen",
+  });
+
+  // Layer order matters: fill first (behind everything), then the ground
+  // glow echo, then widest/softest glow, crisp core last (on top)
   var glowOuter = el("path", { fill: "none", "stroke-linecap": "round", stroke: "url(#csArcGlowFade)" });
   var glowMid = el("path", { fill: "none", "stroke-linecap": "round", stroke: "url(#csArcGlowFade)" });
   var glowTight = el("path", { fill: "none", "stroke-linecap": "round", stroke: "url(#csArcGlowFade)" });
@@ -78,6 +98,7 @@ export function initArc({ stage, arcEl, isLight }) {
 
   svg.appendChild(defs);
   svg.appendChild(fillShape);
+  svg.appendChild(groundGlow);
   svg.appendChild(glowOuter);
   svg.appendChild(glowMid);
   svg.appendChild(glowTight);
@@ -108,8 +129,13 @@ export function initArc({ stage, arcEl, isLight }) {
     var cx = W / 2;
     var cy = H;
     // Lower multiplier than before (was H*0.92) so the apex sits further
-    // down from the top of the hero instead of touching it.
-    var R = Math.max(halfSpan * 1.06, H * 0.75);
+    // down from the top of the hero instead of touching it. H is capped
+    // relative to W so tall/narrow (mobile) viewports don't blow the
+    // radius up into an almost-flat arc with a tall vertical-sided fill -
+    // that reads as a boxy pillar with blank gutters on both sides instead
+    // of a wide horizon curve. No effect on landscape/desktop, where W is
+    // already comfortably bigger than H.
+    var R = Math.max(halfSpan * 1.06, Math.min(H, W * 1.3) * 0.75);
 
     var xMin = cx - halfSpan;
     var xMax = cx + halfSpan;
@@ -128,10 +154,9 @@ export function initArc({ stage, arcEl, isLight }) {
 
     // Closed shape: same arc, then straight down to the stage bottom and
     // back across, filled solid to occlude anything behind the horizon.
-    fillShape.setAttribute(
-      "d",
-      d + " L " + xMax + " " + H + " L " + xMin + " " + H + " Z",
-    );
+    var groundD = d + " L " + xMax + " " + H + " L " + xMin + " " + H + " Z";
+    fillShape.setAttribute("d", groundD);
+    groundGlow.setAttribute("d", groundD);
 
     // Fade gradients run left-to-right along the arc's own span (a
     // horizontal gradient vector, so color only varies with x) - full
@@ -179,6 +204,12 @@ export function initArc({ stage, arcEl, isLight }) {
     bloom.style.top = apexYForFill + "px";
     bloom.style.width = bloomSize + "px";
     bloom.style.height = bloomSize + "px";
+
+    // Ground glow echoes the bloom's position/size so the lit patch is
+    // continuous across the horizon line instead of stopping dead at it.
+    groundGlowGradient.setAttribute("cx", cx);
+    groundGlowGradient.setAttribute("cy", apexYForFill);
+    groundGlowGradient.setAttribute("r", bloomSize * 1.1);
   }
 
   layout();

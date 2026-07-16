@@ -483,7 +483,7 @@
 @media (max-width: 900px) {
   .cs-stage {
     padding: 90px 20px 72px;
-    min-height: clamp(520px, 82vh, 680px);
+    min-height: clamp(480px, 72vh, 620px);
   }
   .cs-copy {
     transform: translateY(-40px);
