@@ -243,6 +243,21 @@ export function initUnicorn({ button, img, hero }) {
       hint.style.transition = "opacity .4s ease";
       hint.style.opacity = "0";
     }
+    hideUnicornTip();
+  }
+
+  var tipHidden = false;
+  function hideUnicornTip() {
+    if (tipHidden) return;
+    tipHidden = true;
+    var tip = document.getElementById("csUnicornTip");
+    if (tip) tip.classList.remove("is-visible");
+  }
+  function showUnicornTip() {
+    if (tipHidden) return;
+    var tip = document.getElementById("csUnicornTip");
+    if (!tip) return;
+    tip.classList.add("is-visible");
   }
 
   function onPointerDown(e) {
@@ -346,4 +361,6 @@ export function initUnicorn({ button, img, hero }) {
     button.classList.add("is-ready");
     requestAnimationFrame(tick);
   });
+
+  setTimeout(showUnicornTip, 1400);
 }
