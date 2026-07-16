@@ -7,15 +7,8 @@
     -->
     <script>
       (function () {
-        var s = localStorage.getItem("theme");
-        document.documentElement.setAttribute(
-          "data-theme",
-          s
-            ? s
-            : window.matchMedia("(prefers-color-scheme:dark)").matches
-              ? "dark"
-              : "light",
-        );
+        // Light theme temporarily disabled - always force dark.
+        document.documentElement.setAttribute("data-theme", "dark");
       })();
     </script>
     <meta charset="UTF-8" />
@@ -141,24 +134,12 @@
       <div class="cs-unicorn-tip" id="csUnicornTip" aria-hidden="true">
         <svg
           class="cs-unicorn-tip-arrow"
-          width="30"
+          width="56"
           height="34"
-          viewBox="0 0 30 34"
+          viewBox="0 0 165 99"
           fill="none"
         >
-          <path
-            d="M3 2C1 12 3 23 15 27"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-          />
-          <path
-            d="M8.5 24.5L15 27.5L14.5 20.5"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+          <path d="M164.268 13.0942C161.405 9.10021 160.502 6.47097 158.899 5.90089C152.94 3.75374 146.905 1.19056 140.585 0.611733C123.702 -1.49896 107.623 2.04403 92.0323 8.29112C65.4369 18.8846 43.1927 35.7809 22.7564 55.5729C20.5655 57.6861 18.3371 59.5912 15.9385 61.7418C15.731 61.7792 15.2783 61.646 14.5806 61.3423C15.001 56.5415 15.384 51.5328 15.5969 46.7695C15.5621 44.1986 15.037 41.2864 13.7567 38.94C13.079 37.5588 10.4207 35.8903 8.96765 36.1523C7.09944 36.4891 5.07861 38.3568 3.64298 39.9042C2.79259 41.1314 2.92255 43.0409 2.80739 44.7798C1.94373 57.8217 0.664903 70.9385 0.0463191 84.1509C-0.49461 95.4165 3.67172 98.3164 14.1457 95.7838C25.0348 93.1764 35.999 90.9851 46.718 88.6231C50.0018 87.8163 53.4181 86.5561 57.0795 85.4665C51.5605 77.4411 51.5605 77.4411 17.3704 80.3834C29.5383 64.6592 43.7392 53.0788 58.4678 42.0475C73.1964 31.0161 89.2428 22.5393 106.777 16.3714C124.934 10.0912 143.216 10.4465 164.268 13.0942Z" fill="currentColor"/>
         </svg>
         <span class="cs-unicorn-tip-pill"
           >Drag me <span class="cs-unicorn-tip-sparkle">✦</span></span
@@ -177,6 +158,7 @@
           class="theme-btn"
           id="themeBtn"
           aria-label="Toggle colour scheme"
+          style="display: none"
         >
           <span class="t-icon" id="tIcon">◐</span>
           <span id="tLabel">Light</span>
@@ -360,25 +342,8 @@
     </script>
     <script>
       /* ---- THEME ---- */
-      const html = document.documentElement;
-      const tBtn = document.getElementById("themeBtn");
-      const tIcon = document.getElementById("tIcon");
-      const tLabel = document.getElementById("tLabel");
-      let dark =
-        (localStorage.getItem("theme") ||
-          (window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light")) === "dark";
-      tIcon.textContent = dark ? "◐" : "◑";
-      tLabel.textContent = dark ? "Light" : "Dark";
-
-      tBtn.addEventListener("click", () => {
-        dark = !dark;
-        html.setAttribute("data-theme", dark ? "dark" : "light");
-        localStorage.setItem("theme", dark ? "dark" : "light");
-        tIcon.textContent = dark ? "◐" : "◑";
-        tLabel.textContent = dark ? "Light" : "Dark";
-      });
+      // Light theme temporarily disabled - toggle button is hidden and
+      // data-theme stays forced to "dark" (see head script above).
 
       /* ---- CURSOR (Miro-style) - desktop/mouse only ---- */
       if (window.matchMedia("(pointer: fine)").matches) {

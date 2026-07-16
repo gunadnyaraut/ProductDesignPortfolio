@@ -206,6 +206,7 @@
 .cs-heading .tl span {
   display: block;
   transform: translateY(110%);
+  text-align: center;
 }
 
 .cs-sub {
